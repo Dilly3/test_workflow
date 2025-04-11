@@ -9,11 +9,9 @@ jobs:
       steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: Welcome Message
-        run: echo "first Github actions certification example"
-      
-      - name: List files
-        run: ls -a
-
-      - name: Read files
-        run: cat README.md
+      - name: Welcome Message, List and Read files
+        run: | 
+          echo "first Github actions certification example"
+          ls -ltra
+      - name: Generate Ascii artwork 
+        run: cowsay -f dragon "Run for cover, I am a DRAGON....RAWR" &> dragon.txt
