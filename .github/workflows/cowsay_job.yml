@@ -1,0 +1,29 @@
+name: Cowsay Job
+
+on: [push]
+
+jobs:
+    first_job:
+      runs-on: ubuntu-22.04
+
+      steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+    
+      - name: install cowsay 
+        run: sudo apt-get install cowsay -y
+    
+      - name: Generate cowsay artwork 
+        run: cowsay -f dragon "Run for cover, I am a DRAGON....RAWR" 1> dragon.txt
+
+      - name: Check file exist 
+        run: grep -i "dragon" dragon.txt
+
+      - name: Read Dragon file
+        run: cat dragon.txt
+
+      - name: List files 
+        run: ls -ltar
+        
+
+        
