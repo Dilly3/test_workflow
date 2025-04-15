@@ -1,0 +1,14 @@
+name: Cowsay Script
+
+on: [push]
+
+jobs:
+    cowsay:
+      runs-on: ubuntu-22.04
+
+      steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+    
+      - name: install cowsay 
+        run: ./cowsay_script.sh
