@@ -8,3 +8,5 @@ We will be learning Github Actions
 - a robust automation tool that empowers you to treamline repetitive tasks
 - automate your software evelopment workflows
 - enhancing productivity and code quality
+
+> Almost everything will work again if you unplug for a few minutes.
