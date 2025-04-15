@@ -1,0 +1,33 @@
+# Exploring Variables and Secrets
+
+name: Exploring variables and secrets
+
+on: [push]
+env: 
+  CONTAINER_REGISTRY:docker.io
+  DOCKER_USERNAME:dillianiks
+  IMAGE_NAME:github-actions-nginx
+
+
+jobs: 
+  docker:
+    name: docker
+    runs-on: ubuntu-latest
+    steps:
+    - name: Docker build
+      run: docker build -t ${{ env.CONTAINER_REGISTRY }}/${{ env.DOCKER_USERNAME }}/${{ env.IMAGE_NAME }}:latest
+
+    - name: Docker login
+      run: docker login --username=${{ env.DOCKER_USERNAME }} --password=${{ secrets.DOCKER_PASSWORD }} 
+
+    - name: Docker Publish
+      run: echo docker push ${{ env.CONTAINER_REGISTRY }}/${{ env.DOCKER_USERNAME }}/${{ env.IMAGE_NAME }}:latest
+
+  deploy:
+    name: deploy
+    needs: docker
+    runs-on: ubuntu-latest
+
+    steps: 
+    - name: docker run
+      run: docker run -d -p 8080:80 {{ env.CONTAINER_REGISTRY }}/{{ env.DOCKER_USERNAME }}/{{ env.IMAGE_NAME }}:latest
