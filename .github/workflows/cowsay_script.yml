@@ -9,6 +9,8 @@ jobs:
       steps:
       - name: Checkout
         uses: actions/checkout@v4
+      - name: Add Permission
+        run: sudo chmod u+x ./cowsay_script.sh
     
       - name: install cowsay 
         run: ./cowsay_script.sh
