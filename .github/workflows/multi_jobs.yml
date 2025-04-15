@@ -11,8 +11,11 @@ jobs:
     - name: Install Cowsay
       run: sudo apt-get install cowsay -y
 
-    - name: Add permission 
-      run: sudo chmod u+x ./cowsay_script.sh
+    - name: Add permission and run script
+      run: |
+       sudo chmod u+x ./cowsay_script.sh
+       ./cowsay_script.sh
+
     - name: Upload 
       uses: actions/upload-artifact@v4
       with:
