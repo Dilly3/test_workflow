@@ -13,6 +13,12 @@ jobs:
 
     - name: Add permission 
       run: sudo chmod u+x ./cowsay_script.sh
+    - name: Upload 
+      uses: actions/upload-artifact@v4
+      with:
+        name: Dragon_text
+        path: dragon.txt
+
   
   job_2:
     name: Test Job
@@ -21,6 +27,11 @@ jobs:
     steps:
     - name: Sleep for 10 secs
       run: sleep 10
+    - name: Download Artifact
+      uses: actions/download-artifact@v4
+      with:
+       name: Dragon_text
+
     - name: Test files exist
       run: grep -i "dragon" dragon.txt
 
@@ -29,7 +40,13 @@ jobs:
     needs: job_2
     runs-on: ubuntu-latest
     steps:
+    - name: Download Artifact
+      uses: actions/download-artifact@v4
+      with:
+         name: Dragon_text
+    
     - name: Read file
       run: cat dragon.txt
+
     - name: Deploy 
       run: echo "Deploying !!"
