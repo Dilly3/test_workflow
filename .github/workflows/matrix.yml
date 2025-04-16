@@ -30,7 +30,7 @@ jobs:
   deploy:
     name: deploy
     needs: docker
-    timeout-minutes: 2
+    timeout-minutes: 4
     # concurrency: 
     #     group: production-deployment
     #     cancel-in-progress: false
@@ -38,7 +38,7 @@ jobs:
     strategy:
       matrix:
         os: [ ubuntu-latest, windows-latest, ubuntu-22.04]
-        images: [ hello-world, alpine ]
+        images: [ hello-world, node ]
         # exclude:
         # - images: alpine
         #   os: windows-latest
