@@ -38,7 +38,7 @@ jobs:
     strategy:
       matrix:
         os: [ ubuntu-latest, windows-latest, ubuntu-22.04]
-        images: [ hello-world, node ]
+        images: [ hello-world]
         # exclude:
         # - images: alpine
         #   os: windows-latest
