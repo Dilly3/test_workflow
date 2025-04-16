@@ -2,7 +2,10 @@
 
 name: matrix strategy
 
-on: [push,workflow_dispatch]
+on: 
+  workflow_dispatch:
+ # push
+
 
 env: 
     CONTAINER_REGISTRY: docker.io
@@ -27,18 +30,23 @@ jobs:
   deploy:
     name: deploy
     needs: docker
+    timeout-minutes: 4
+    # concurrency: 
+    #     group: production-deployment
+    #     cancel-in-progress: false
+
     strategy:
       matrix:
-        os: [ubuntu-latest, ubuntu-20.04,windows-latest]
-        images: [hello-world,alpine]
+        os: [ ubuntu-latest, windows-latest, ubuntu-22.04]
+        images: [ hello-world,alpine]
         exclude:
         - images: alpine
           os: windows-latest
         include:
-        - images: [amd64/alpine]
-          os: ubuntu-20.04
+        - images: [ node ]
+          os: [ ubuntu-latest ]
     runs-on: ${{ matrix.os }}
 
     steps: 
-    - name: docker run
-      run: echo docker run -d -p 8080:80 {{ env.CONTAINER_REGISTRY }}/{{ env.DOCKER_USERNAME }}/{{ env.IMAGE_NAME }}:latest
+    - name: Runing docker image ${{ matrix.images }}
+      run: docker run ${{ matrix.images }}

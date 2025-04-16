@@ -38,13 +38,13 @@ jobs:
     strategy:
       matrix:
         os: [ ubuntu-latest, windows-latest, ubuntu-22.04]
-        images: [ hello-world]
-        # exclude:
-        # - images: alpine
-        #   os: windows-latest
-        # include:
-        # - images: [ amd64/alpine ]
-        #   os: [ ubuntu-latest ]
+        images: [ hello-world,alpine]
+        exclude:
+        - images: alpine
+          os: windows-latest
+        include:
+        - images: [ node ]
+          os: [ ubuntu-latest ]
     runs-on: ${{ matrix.os }}
 
     steps: 
