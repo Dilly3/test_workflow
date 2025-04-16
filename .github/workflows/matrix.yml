@@ -30,10 +30,10 @@ jobs:
   deploy:
     name: deploy
     needs: docker
-    timeout-minutes: 5
-    concurrency: 
-        group: production-deployment
-        cancel-in-progress: false
+    timeout-minutes: 2
+    # concurrency: 
+    #     group: production-deployment
+    #     cancel-in-progress: false
 
     strategy:
       matrix:
