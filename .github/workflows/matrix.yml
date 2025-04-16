@@ -1,0 +1,44 @@
+# Exploring the matrix strategy and concorrency
+
+name: matrix strategy
+
+on: [push,workflow_dispatch]
+
+env: 
+    CONTAINER_REGISTRY: docker.io
+    DOCKER_USERNAME: dillianiks
+    IMAGE_NAME: github-actions-nginx
+
+
+jobs: 
+  docker:
+    name: docker
+    runs-on: ubuntu-latest
+    steps:
+    - name: Docker build
+      run: echo docker build -t ${{ env.CONTAINER_REGISTRY }}/${{ env.DOCKER_USERNAME }}/${{ env.IMAGE_NAME }}:latest
+
+    - name: Docker login
+      run: echo docker login --username=${{ env.DOCKER_USERNAME }} --password=${{ secrets.DOCKER_PASSWORD }} 
+
+    - name: Docker Publish
+      run: echo docker push ${{ env.CONTAINER_REGISTRY }}/${{ env.DOCKER_USERNAME }}/${{ env.IMAGE_NAME }}:latest
+
+  deploy:
+    name: deploy
+    needs: docker
+    strategy:
+      matrix:
+        os: [ubuntu-latest, ubuntu-20.04,windows-latest]
+        images: [hello-world,alpine]
+        exclude:
+        - images: alpine
+          os: windows-latest
+        include:
+        - images: [amd64/alpine]
+          os: ubuntu-20.04
+    runs-on: ${{ matrix.os }}
+
+    steps: 
+    - name: docker run
+      run: echo docker run -d -p 8080:80 {{ env.CONTAINER_REGISTRY }}/{{ env.DOCKER_USERNAME }}/{{ env.IMAGE_NAME }}:latest
