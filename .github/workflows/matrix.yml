@@ -42,9 +42,9 @@ jobs:
         exclude:
         - images: alpine
           os: windows-latest
-        include:
-        - images: [ node ]
-          os: [ ubuntu-latest ]
+        # include:
+        # - images: [ node ]
+        #   os: [ ubuntu-latest ]
     runs-on: ${{ matrix.os }}
 
     steps: 
