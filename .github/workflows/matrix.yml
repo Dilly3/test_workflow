@@ -40,5 +40,5 @@ jobs:
     runs-on: ${{ matrix.os }}
 
     steps: 
-    - name: docker run
-      run: echo docker run -d -p 8080:80 {{ env.CONTAINER_REGISTRY }}/{{ env.DOCKER_USERNAME }}/{{ env.IMAGE_NAME }}:latest
+    - name: Runing docker image ${{ matrix.images }}
+      run: docker run ${{ matrix.images }}
