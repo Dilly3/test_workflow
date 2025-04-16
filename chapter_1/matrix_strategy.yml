@@ -36,15 +36,17 @@ jobs:
     #     cancel-in-progress: false
 
     strategy:
+      fail-fast: true
+      max-parallel: 2
       matrix:
         os: [ ubuntu-latest, windows-latest, ubuntu-22.04]
         images: [ hello-world,alpine]
         exclude:
         - images: alpine
           os: windows-latest
-        include:
-        - images: [ node ]
-          os: [ ubuntu-latest ]
+        # include:
+        # - images: [ amd64/alpine ]
+        #   os: [ ubuntu-22.04 ]
     runs-on: ${{ matrix.os }}
 
     steps: 
