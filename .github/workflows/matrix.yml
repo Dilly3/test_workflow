@@ -4,7 +4,7 @@ name: matrix strategy
 
 on: 
   workflow_dispatch:
-#  push
+ # push
 
 
 env: 
@@ -30,7 +30,7 @@ jobs:
   deploy:
     name: deploy
     needs: docker
-    timeout-minutes: 2
+    timeout-minutes: 5
     concurrency: 
         group: production-deployment
         cancel-in-progress: false
